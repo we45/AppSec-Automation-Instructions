@@ -99,7 +99,30 @@ password: `secdevops`
 * Type: `source venv/bin/activate`
 * Run: `robot MyTestPipeline.robot` and observe the results
 
+## ZAP Custom Scripting
 
+### Active Scan Rules
+* Open OWASP ZAP from the Desktop
+* In the Sidebar, click on the + icon and open scripts
+* Click on `Active Rules` and enable all the rules by right clicking and selecting
+* Save the Script by right clicking on the script
+* Close ZAP
+* Open Terminal and type `stop_all_containers.sh` to stop all running containers
+* Open Terminal and type: `start_flask.sh`
+* Go to: `cd /Desktop/tooling/REST_ZAP`
+* Type: `source venv/bin/activate`
+* type: `robot ZAPWebService.robot`
+* To read the source code: `mousepad ZAPWebService.robot`
+* Comment out the `Kill ZAP` Test Case
 
-
-
+### Targeted Script - Struts2 (CVE-2017-5638)
+* Open OWASP ZAP from the Desktop
+* In the Sidebar, click on the + icon and open scripts
+* Copy the script from Desktop/tooling/zap_scripts
+* Create a new "Targeted" Script
+* Choose the jython option forthe Scripting Engine
+* Paste the script you copied into the new script
+* Open Terminal enter `start_struts.sh`
+* Open up the browser, click on the Fox icon next to the address bar. In the drop down, select OWASP ZAP. This will ensure that all requests from the browser are proxied through ZAP
+* Now, in the address bar, type in `localhost:7777`, and you will get a signup screen.  
+* Now, go to OWASP ZAP, and in the "Sites" window, you should see `http://localhost:7777/`, click and select any node of the site tree. Right click on any node and click on "Invoke with Script", select the `Struts2 Vulnerability` Script and observe the results in the Script Output Window
